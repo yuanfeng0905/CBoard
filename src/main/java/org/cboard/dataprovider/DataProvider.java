@@ -51,11 +51,7 @@ public abstract class DataProvider {
     public abstract boolean doAggregationInDataSource();
 
     public boolean isDataSourceAggInstance() {
-        if (this instanceof Aggregatable && doAggregationInDataSource()) {
-            return true;
-        } else {
-            return false;
-        }
+        return this instanceof Aggregatable && doAggregationInDataSource();
     }
     /**
      * get the aggregated data by user's widget designer
@@ -88,7 +84,7 @@ public abstract class DataProvider {
      * @return
      */
     public final String[] getDimVals(String columnName, AggConfig config, boolean reload) throws Exception {
-        String[] dimVals = null;
+        String[] dimVals;
         evalValueExpression(config);
         if (isDataSourceAggInstance()) {
             dimVals = ((Aggregatable) this).queryDimVals(columnName, config);
@@ -97,14 +93,12 @@ public abstract class DataProvider {
             dimVals = innerAggregator.queryDimVals(columnName, config);
         }
         return Arrays.stream(dimVals)
-                .map(member -> {
-                    return Objects.isNull(member) ? NULL_STRING : member;
-                })
+                .map(member -> Objects.isNull(member) ? NULL_STRING : member)
                 .sorted(new NaturalOrderComparator()).limit(1000).toArray(String[]::new);
     }
 
     public final String[] invokeGetColumn(boolean reload) throws Exception {
-        String[] columns = null;
+        String[] columns;
         if (isDataSourceAggInstance()) {
             columns = ((Aggregatable) this).getColumn();
         } else {
@@ -173,9 +167,9 @@ public abstract class DataProvider {
 
     public List<DimensionConfig> filterCCList2DCList(List<ConfigComponent> filters) {
         List<DimensionConfig> result = new LinkedList<>();
-        filters.stream().forEach(cc -> {
-            result.addAll(configComp2DimConfigList(cc));
-        });
+        filters.stream().forEach(cc ->
+            result.addAll(configComp2DimConfigList(cc))
+        );
         return result;
     }
 
