@@ -235,6 +235,7 @@ desired effect
 <script src="org/cboard/controller/config/widgetCtrl.js"></script>
 <script src="org/cboard/controller/config/datasourceCtrl.js"></script>
 <script src="org/cboard/controller/config/boardCtrl.js"></script>
+<script src="org/cboard/controller/config/homepageSettingCtrl.js"></script>
 <script src="org/cboard/controller/config/freeLayoutCtrl.js"></script>
 <script src="org/cboard/controller/config/folderTreeCtrl.js"></script>
 <script src="org/cboard/controller/config/categoryCtrl.js"></script>
@@ -295,6 +296,8 @@ desired effect
                     <button type="button" class="btn btn-box-tool" ng-if="widgetCfg" ng-click="config(widget)"><i
                             class="fa fa-wrench"></i>
                     </button>
+                    <button type="button" class="btn btn-box-tool" ng-if="widget.extenal" ng-click="skip(widget)" title="{{'COMMON.SKIP_TO'|translate}}{{widget.extenal.name}}"><i class="fa fa-share"></i>
+                    </button>
                     <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
                     </button>
                     <button type="button" class="btn btn-box-tool" ng-click="modalChart(widget)"><i
@@ -322,6 +325,8 @@ desired effect
                     </button>
                     <button type="button" class="btn btn-box-tool" ng-if="widgetCfg" ng-click="config(widget)"><i
                             class="fa fa-wrench"></i>
+                    </button>
+                    <button type="button" class="btn btn-box-tool" ng-if="widget.extenal" ng-click="skip(widget)" title="{{'COMMON.SKIP_TO'|translate}}{{widget.extenal.name}}"><i class="fa fa-share"></i>
                     </button>
                     <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
                     </button>
